@@ -36,3 +36,27 @@ Then, we analyzed the play video of agent and discovered that although the ball 
 
 ### Rule Based Initialization
 After redesigning the reward, we still cannot get accurate q values due to the computing resources limitation, which can be observed in Figure 7 with very low proportions of actions ’short pass’, ’high pass’ and ’right’ after 30 epochs. Therefore, to speed up the training process, and push the model to learn how to defend, pass and shot within limit training, we replace the random initialization in epsilon greedy part with probability 0.5 by a easy rule based initialization to help the model get better training data at the beginning.
+
+## Experiments
+### After Feature Engineering and Model Design
+Based on our engineering techniques and convolutional network design, we visualize the actions prediction during each step (Figure 5). From the visu- alization, we can see that many predicted actions are ”idle” or ”run left”, which means that our players do more defending than scoring. This is be- cause that every time when our model predicts the action ”shot”, it is hard for our team to get the scoring so that the loss will not encourage our model to do more shooting in the next step. Although our feature engineering and model design can help our model understand what happens during the game, we still need other improvements to let the model try to find the chance to get the scoring.
+
+![figure5](https://github.com/WallaceSUI/Novel-Reinforcement-Learning-Algorithm-on-Google-Football-Research/blob/main/figures/figure5.png)
+
+### After Replay Buffer Redesign
+After changing the distribution of different data ratio in our replay buffer, we can see that the model has a different actions prediction distribution (Figure 6). From this result, we can see that our model can predict action ”shot” in a higher probability and the bad actions like ”idle” and ”left” reduce a lot after we change the design in our replay buffer.
+
+![figure6](https://github.com/WallaceSUI/Novel-Reinforcement-Learning-Algorithm-on-Google-Football-Research/blob/main/figures/figure6.png)
+
+### After Rewards Redesign
+Comparing the plots, we successfully controlled the distribution of ac- tion frequency as shown. The modification on rewards not only increase or decrease the frequency of actions with modified rewards, but also enlighten the agent find some useful techniques like sliding and long pass.
+
+![figure7](https://github.com/WallaceSUI/Novel-Reinforcement-Learning-Algorithm-on-Google-Football-Research/blob/main/figures/figure7.png)
+
+### After Rule Based Initialization
+Figure 8 shows the frequency of each action after 30 epochs. From the figure we can see that there are significant increases in actions ’right’, ’short pass’, ’high pass’, and a significant decrease in action ’release sprint’, which shows our initialization pushes the model to learn how to attack better in the beginning.
+
+![figure8](https://github.com/WallaceSUI/Novel-Reinforcement-Learning-Algorithm-on-Google-Football-Research/blob/main/figures/figure8.png)
+
+## Results
+![figure9](https://github.com/WallaceSUI/Novel-Reinforcement-Learning-Algorithm-on-Google-Football-Research/blob/main/figures/figure9.png)
